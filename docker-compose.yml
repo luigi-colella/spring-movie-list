@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+
+  database:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
