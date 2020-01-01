@@ -1,4 +1,4 @@
-package com.example.popcorndatabase.controller;
+package com.example.popcorndatabase.info;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
