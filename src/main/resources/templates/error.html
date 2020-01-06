@@ -1,0 +1,15 @@
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{_fragments/layout :: layout (~{::body})}">
+    <body>
+        <div class="row pt-2">
+            <div class="col">
+                <img class="d-block mx-auto" th:src="@{/assets/error.gif}">
+            </div>
+            <div class="col">
+                <div class="h-100 d-flex flex-column justify-content-center">
+                    <h1>There was an error...</h1>
+                    <p th:text="${message}">Exception message</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
