@@ -1,4 +1,4 @@
-package com.example.popcorndatabase.info;
+package com.example.popcorndatabase.system;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class InfoControllerTest {
+public class SystemControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

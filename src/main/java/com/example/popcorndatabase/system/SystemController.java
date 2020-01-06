@@ -1,19 +1,24 @@
-package com.example.popcorndatabase.info;
+package com.example.popcorndatabase.system;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Controller used to retrieve app's info
+ * Controller used to handle not domain specific requests.
  */
-@RestController
-public class InfoController {
+@Controller
+public class SystemController {
 
+    /**
+     * Return GIT info.
+     */
     @GetMapping("/info")
+    @ResponseBody
     public Map<String, String> getInfo(
         @Value("${git.branch}") String branch,
         @Value("${git.commit.id}") String commitId,
