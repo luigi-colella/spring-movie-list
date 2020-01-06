@@ -7,7 +7,20 @@
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/assets/bootstrap.min.css}">
     <script type="text/javascript" th:src="@{/assets/bootstrap.min.js}"></script>
 </head>
-    <body>
-        <th:block th:include="${content}"/>
+    <body class="bg-light">
+        <nav class="navbar sticky-top navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">
+                <img th:src="@{/assets/brand.png}" width="30" height="30" class="d-inline-block align-top" alt="Logo">
+                Popcorn Database
+            </a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/movie/new}">Insert new movie</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="container py-2">
+            <th:block th:insert="${content}"/>
+        </div>
     </body>
 </html>
