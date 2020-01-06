@@ -26,10 +26,6 @@ public class Movie {
 
     private String plot;
 
-    private String actors;
-
-    private String awards;
-
     private String posterPath;
 
     public Integer getId() {
@@ -70,22 +66,6 @@ public class Movie {
 
     public void setPlot(String plot) {
         this.plot = plot;
-    }
-
-    public String getActors() {
-        return actors;
-    }
-
-    public void setActors(String actors) {
-        this.actors = actors;
-    }
-
-    public String getAwards() {
-        return awards;
-    }
-
-    public void setAwards(String awards) {
-        this.awards = awards;
     }
 
     public String getPosterPath() {
