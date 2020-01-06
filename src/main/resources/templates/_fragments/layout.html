@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html th:fragment="layout (content)">
+<head>
+    <title>Popcorn Database</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/assets/bootstrap.min.css}">
+    <script type="text/javascript" th:src="@{/assets/bootstrap.min.js}"></script>
+</head>
+    <body>
+        <th:block th:include="${content}"/>
+    </body>
+</html>
