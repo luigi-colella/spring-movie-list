@@ -11,9 +11,9 @@ import org.springframework.validation.FieldError;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -25,11 +25,11 @@ public class MovieControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private MovieRepository movieRepository;
+    private MovieService movieService;
 
     @Test
     public void saveMovieShouldReturnErrorsIfFieldsAreNotValid() throws Exception {
-        MvcResult mvcResult = this.mockMvc
+        MvcResult mvcResult = mockMvc
                 .perform(post("/movie").param("year", "0"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(MovieController.CREATE_MOVIE_FORM))
@@ -54,25 +54,24 @@ public class MovieControllerTest {
         movie.setGenre("Genre");
         movie.setPlot("Plot");
 
-        MvcResult mvcResult = this.mockMvc
+        mockMvc
                 .perform(post("/movie")
                         .param("title", movie.getTitle())
                         .param("year", movie.getYear().toString())
                         .param("genre", movie.getGenre())
                         .param("plot", movie.getPlot())
                 )
-                .andExpect(status().isOk())
+                .andExpect(status().isFound())
                 .andExpect(model().attributeDoesNotExist("errors"))
-                .andExpect(view().name(MovieController.CREATE_MOVIE_FORM))
+                .andExpect(view().name("redirect:/movie"))
                 .andReturn();
 
-        Integer movieId = ((Movie) Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get("movie")).getId();
-        Optional<Movie> foundMovie = this.movieRepository.findById(movieId);
-        if (!foundMovie.isPresent()) throw new Exception("No movie found");
-        Movie actualMovie = foundMovie.get();
-        assertEquals(movie.getTitle(), actualMovie.getTitle());
-        assertEquals(movie.getYear(), actualMovie.getYear());
-        assertEquals(movie.getGenre(), actualMovie.getGenre());
-        assertEquals(movie.getPlot(), actualMovie.getPlot());
+        this.movieService.find().forEach(actualMovie -> {
+            assertNotNull(actualMovie.getId());
+            assertEquals(movie.getTitle(), actualMovie.getTitle());
+            assertEquals(movie.getYear(), actualMovie.getYear());
+            assertEquals(movie.getGenre(), actualMovie.getGenre());
+            assertEquals(movie.getPlot(), actualMovie.getPlot());
+        });
     }
 }

@@ -24,14 +24,14 @@ public class MovieController {
     public static final String CREATE_MOVIE_FORM = "movie/createMovieForm";
 
     @Autowired
-    MovieRepository movieRepository;
+    MovieService movieService;
 
     /**
      * Show the view with the movies list.
      */
     @GetMapping("")
     public String showMovies (Map<String, Object> model) {
-        Iterable<Movie> movies = movieRepository.findAll();
+        Iterable<Movie> movies = movieService.find();
         model.put("movies", movies);
         return LIST_MOVIES;
     }
@@ -56,7 +56,7 @@ public class MovieController {
             return CREATE_MOVIE_FORM;
         }
 
-        movieRepository.save(movie);
+        movieService.save(movie);
         return "redirect:/movie";
     }
 }
