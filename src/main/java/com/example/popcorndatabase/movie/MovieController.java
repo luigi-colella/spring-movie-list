@@ -26,7 +26,7 @@ public class MovieController {
         return CREATE_MOVIE_FORM;
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public String addMovie(@Valid Movie movie, BindingResult bindingResult, Map<String, Object> model) {
         if (bindingResult.hasErrors()) {
             model.put("errors", bindingResult.getFieldErrors());

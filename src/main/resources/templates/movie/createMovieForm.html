@@ -1,7 +1,7 @@
 <html xmlns:th="https://www.thymeleaf.org" th:replace="~{_fragments/layout :: layout (~{::body})}">
     <body>
         <h1>Insert new movie</h1>
-        <form method="post" th:action="@{/movie/}" th:object="${movie}">
+        <form method="post" th:action="@{/movie}" th:object="${movie}">
             <!-- Title -->
             <div class="form-group">
                 <label for="title">Title</label>

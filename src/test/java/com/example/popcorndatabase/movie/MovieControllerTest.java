@@ -30,7 +30,7 @@ public class MovieControllerTest {
     @Test
     public void saveMovieShouldReturnErrorsIfFieldsAreNotValid() throws Exception {
         MvcResult mvcResult = this.mockMvc
-                .perform(post("/movie/").param("year", "0"))
+                .perform(post("/movie").param("year", "0"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(MovieController.CREATE_MOVIE_FORM))
                 .andReturn();
@@ -55,7 +55,7 @@ public class MovieControllerTest {
         movie.setPlot("Plot");
 
         MvcResult mvcResult = this.mockMvc
-                .perform(post("/movie/")
+                .perform(post("/movie")
                         .param("title", movie.getTitle())
                         .param("year", movie.getYear().toString())
                         .param("genre", movie.getGenre())

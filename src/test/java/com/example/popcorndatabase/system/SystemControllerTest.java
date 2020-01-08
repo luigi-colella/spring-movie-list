@@ -22,7 +22,6 @@ public class SystemControllerTest {
     public void shouldReturnInfo() throws Exception {
         this.mockMvc
             .perform(get("/info"))
-            .andDo(print())
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.branch").isNotEmpty())
             .andExpect(jsonPath("$.commit_id").isNotEmpty())
