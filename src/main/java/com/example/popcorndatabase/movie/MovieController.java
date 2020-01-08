@@ -57,6 +57,6 @@ public class MovieController {
         }
 
         movieRepository.save(movie);
-        return CREATE_MOVIE_FORM;
+        return "redirect:/movie";
     }
 }
