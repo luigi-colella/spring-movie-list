@@ -14,6 +14,15 @@ import java.util.Map;
 @Controller
 public class SystemController {
 
+
+    /**
+     * Show homepage.
+     */
+    @GetMapping("")
+    public String showHomepage () {
+        return "redirect:/movie";
+    }
+
     /**
      * Return GIT info.
      */
