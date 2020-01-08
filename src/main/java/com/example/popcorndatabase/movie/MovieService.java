@@ -10,7 +10,7 @@ public class MovieService {
     MovieRepository movieRepository;
 
     public Iterable<Movie> find () {
-        return movieRepository.findAll();
+        return movieRepository.findAllByOrderByIdDesc();
     }
 
     public Movie save (Movie movie) {
