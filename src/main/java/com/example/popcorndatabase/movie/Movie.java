@@ -4,7 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -14,11 +16,12 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @NotNull
+    @NotEmpty
     @Size(max = 45)
     private String title;
 
-    @Size(min = 4, max = 4)
+    @Min(1878) // The year of the first movie in the history https://en.wikipedia.org/wiki/The_Horse_in_Motion
+    @Max(2100) // Who knows... :D
     private Integer year;
 
     @Size(max = 30)

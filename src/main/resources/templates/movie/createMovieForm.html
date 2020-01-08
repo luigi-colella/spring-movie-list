@@ -1,21 +1,24 @@
 <html xmlns:th="https://www.thymeleaf.org" th:replace="~{_fragments/layout :: layout (~{::body})}">
     <body>
         <h1>Insert new movie</h1>
-        <form>
+        <form method="post" th:action="@{/movie/}" th:object="${movie}">
             <!-- Title -->
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" placeholder="Enter title">
+                <input class="form-control" id="title" placeholder="Enter title" th:field="*{title}" type="text">
+                <p th:errors="*{title}" th:if="${#fields.hasErrors('title')}"></p>
             </div>
             <!-- Year -->
             <div class="form-group">
                 <label for="year">Year</label>
-                <input type="number" class="form-control" id="year" placeholder="Enter year" min="1891">
+                <input class="form-control" id="year" placeholder="Enter year" th:field="*{year}" type="number">
+                <p th:errors="*{year}" th:if="${#fields.hasErrors('year')}"></p>
             </div>
             <!-- Genre -->
             <div class="form-group">
                 <label for="genre">Genre</label>
-                <input type="text" class="form-control" id="genre" placeholder="Enter genre" list="genres">
+                <input class="form-control" id="genre" list="genres" placeholder="Enter genre" th:field="*{genre}"
+                       type="text">
                 <datalist id="genres">
                     <option value="Action">
                     <option value="Adventure">
@@ -26,11 +29,13 @@
                     <option value="Thriller">
                 </datalist>
                 <small class="form-text text-muted">Double click the field to see a list of suggested genres.</small>
+                <p th:errors="*{genre}" th:if="${#fields.hasErrors('genre')}"></p>
             </div>
             <!-- Plot -->
             <div class="form-group">
                 <label for="genre">Plot</label>
-                <textarea class="form-control" id="plot" placeholder="Enter plot"></textarea>
+                <textarea class="form-control" id="plot" placeholder="Enter plot" th:field="*{plot}"></textarea>
+                <p th:errors="*{plot}" th:if="${#fields.hasErrors('plot')}"></p>
             </div>
             <!-- Poster -->
             <div class="form-group">
