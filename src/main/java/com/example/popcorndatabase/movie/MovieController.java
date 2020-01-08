@@ -53,9 +53,10 @@ public class MovieController {
     public String addMovie (@Valid Movie movie, BindingResult bindingResult, Map<String, Object> model) {
         if (bindingResult.hasErrors()) {
             model.put("errors", bindingResult.getFieldErrors());
-        } else {
-            movieRepository.save(movie);
+            return CREATE_MOVIE_FORM;
         }
+
+        movieRepository.save(movie);
         return CREATE_MOVIE_FORM;
     }
 }
