@@ -3,7 +3,9 @@
         <h1>Last added movies</h1>
         <div class="my-4 card-columns">
             <div th:each="movie : ${movies}" class="card">
-                <img th:src="@{__(${movie.posterPath} ?: '/assets/no-poster-placeholder.jpg')__}" class="card-img-top">
+                <a th:href="@{'/movie/' + ${movie.id}}">
+                    <img class="card-img-top" th:src="@{__(${movie.posterPath} ?: '/assets/no-poster-placeholder.jpg')__}">
+                </a>
                 <div class="card-body">
                     <h5 class="card-title" th:text="${movie.title}"></h5>
                     <p class="card-text" th:text="${movie.plot}"></p>
