@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,10 +20,10 @@ public class SystemControllerTest {
     @Test
     public void shouldReturnInfo() throws Exception {
         this.mockMvc
-            .perform(get("/info"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.branch").isNotEmpty())
-            .andExpect(jsonPath("$.commit_id").isNotEmpty())
-            .andExpect(jsonPath("$.commit_message").isNotEmpty());
+                .perform(get("/info"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.branch").isNotEmpty())
+                .andExpect(jsonPath("$.commit_id").isNotEmpty())
+                .andExpect(jsonPath("$.commit_message").isNotEmpty());
     }
 }

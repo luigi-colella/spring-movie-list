@@ -1,18 +1,15 @@
 package com.example.popcorndatabase.movie;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Controller used to handle CRUD operations and views related to movies.
@@ -35,7 +32,7 @@ public class MovieController {
      * Show the view with the movies list.
      */
     @GetMapping("")
-    public String showMovies (Map<String, Object> model) {
+    public String showMovies(Map<String, Object> model) {
         Iterable<Movie> movies = movieService.find();
         model.put("movies", movies);
         return LIST_MOVIES;
@@ -45,7 +42,7 @@ public class MovieController {
      * Show the view with the movie details.
      */
     @GetMapping("/{id}")
-    public String showMovie (@PathVariable Integer id, Map<String, Object> model) {
+    public String showMovie(@PathVariable Integer id, Map<String, Object> model) {
         Movie movie = this.movieService.findOrThrow404(id);
         model.put("movie", movie);
         return SHOW_MOVIE;
@@ -55,7 +52,7 @@ public class MovieController {
      * Show the view with the form to add a new movie.
      */
     @GetMapping("/new")
-    public String showMovieForm (Map<String, Object> model) {
+    public String showMovieForm(Map<String, Object> model) {
         Movie movie = new Movie();
         model.put("movie", movie);
         return CREATE_MOVIE_FORM;
@@ -65,7 +62,7 @@ public class MovieController {
      * Save a movie in the database.
      */
     @PostMapping("")
-    public String addMovie (@Valid Movie movie, BindingResult bindingResult, Map<String, Object> model) {
+    public String addMovie(@Valid Movie movie, BindingResult bindingResult, Map<String, Object> model) {
         if (bindingResult.hasErrors()) {
             model.put("errors", bindingResult.getFieldErrors());
             return CREATE_MOVIE_FORM;

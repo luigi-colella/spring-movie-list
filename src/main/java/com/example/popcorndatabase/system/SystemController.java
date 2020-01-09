@@ -18,7 +18,7 @@ public class SystemController {
      * Show homepage.
      */
     @GetMapping("")
-    public String showHomepage () {
+    public String showHomepage() {
         return "redirect:/movie";
     }
 
@@ -28,9 +28,9 @@ public class SystemController {
     @GetMapping("/info")
     @ResponseBody
     public Map<String, String> getInfo(
-        @Value("${git.branch}") String branch,
-        @Value("${git.commit.id}") String commitId,
-        @Value("${git.commit.message.full}") String commitMessage
+            @Value("${git.branch}") String branch,
+            @Value("${git.commit.id}") String commitId,
+            @Value("${git.commit.message.full}") String commitMessage
     ) {
         Map<String, String> result = new LinkedHashMap<>();
         result.put("branch", branch);
