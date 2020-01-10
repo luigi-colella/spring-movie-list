@@ -1,12 +1,11 @@
 package com.example.popcorndatabase.movie;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -27,6 +26,15 @@ public class MovieController {
 
     @Autowired
     MovieService movieService;
+
+    /**
+     * Set empty strings in the command / form objects to null as default.
+     */
+    @InitBinder
+    public void setEmptyStringsToNullInBinding(WebDataBinder binder)
+    {
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor( true ));
+    }
 
     /**
      * Show the view with the movies list.

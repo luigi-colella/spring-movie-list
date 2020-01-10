@@ -1,0 +1,40 @@
+<html th:replace="~{_fragments/layout :: layout (~{::body})}" xmlns:th="https://www.thymeleaf.org">
+<body>
+<div class="jumbotron p-4">
+    <div class="media">
+        <div class="row w-100">
+            <div class="col-sm mt-auto mb-auto">
+                <img class="align-self-center mr-3 w-100" th:src="@{__(${movie.posterPath} ?: '/assets/no-poster-placeholder.jpg')__}">
+            </div>
+            <div class="col-sm">
+                <div class="d-flex flex-column justify-content-start h-100">
+                    <div class="media-body">
+                        <h1 th:text="${movie.title}"></h1>
+                        <hr>
+                        <th:block th:if="${movie.year}">
+                            <h5>Title</h5>
+                            <p th:text="${movie.year}"></p>
+                        </th:block>
+                        <th:block th:if="${movie.genre}">
+                            <h5>Genre</h5>
+                            <p th:text="${movie.genre}"></p>
+                        </th:block>
+                        <th:block th:if="${movie.plot}">
+                            <h5>Plot</h5>
+                            <p th:text="${movie.plot}"></p>
+                        </th:block>
+                    </div>
+                    <div class="mt-auto ml-auto">
+                        <form>
+                            <input name="id" th:value="${movie.id}" hidden>
+                            <button type="submit" formaction="#" class="btn btn-primary mr-2">Edit</button>
+                            <button type="submit" formaction="#" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
