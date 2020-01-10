@@ -1,4 +1,5 @@
-<html th:replace="~{_fragments/layout :: layout (~{::body})}" xmlns:th="https://www.thymeleaf.org">
+<html th:replace="~{_fragments/layout :: layout (~{::body})}" xmlns:th="https://www.thymeleaf.org"
+      xmlns:form="http://www.w3.org/1999/html">
 <body>
 <div class="jumbotron p-4">
     <div class="media">
@@ -25,10 +26,9 @@
                         </th:block>
                     </div>
                     <div class="mt-auto ml-auto">
-                        <form>
-                            <input name="id" th:value="${movie.id}" hidden>
-                            <button type="submit" formaction="#" class="btn btn-primary mr-2">Edit</button>
-                            <button type="submit" formaction="#" class="btn btn-danger">Delete</button>
+                        <form th:action="@{'/movie/' + ${movie.id}}" method="post">
+                            <button class="btn btn-primary mr-2">Edit</button>
+                            <button type="submit" name="_method" value="delete" class="btn btn-danger">Delete</button>
                         </form>
                     </div>
                 </div>

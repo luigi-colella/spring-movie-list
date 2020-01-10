@@ -79,4 +79,13 @@ public class MovieController {
         movieService.save(movie);
         return "redirect:/movie";
     }
+
+    /**
+     * Save the selected movie in the database.
+     */
+    @DeleteMapping("/{id}")
+    public String deleteMovie(@PathVariable Integer id) {
+        movieService.delete(id);
+        return "redirect:/movie";
+    }
 }

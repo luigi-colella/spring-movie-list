@@ -8,15 +8,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.validation.FieldError;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -123,5 +119,20 @@ public class MovieControllerTest {
                 .andExpect(status().isFound())
                 .andExpect(model().attributeDoesNotExist("errors"))
                 .andExpect(view().name("redirect:/movie"));
+    }
+
+    @Test
+    public void shouldDeleteMovie() throws Exception {
+        Movie movie = new Movie();
+        movie.setTitle("abc");
+        Movie movieToDelete = movieService.save(movie);
+
+        mockMvc
+                .perform(delete("/movie/{id}", movieToDelete.getId().toString()))
+                .andExpect(status().isFound())
+                .andExpect(view().name("redirect:/movie"));
+
+        Optional<Movie> deletedMovie = movieService.find(movieToDelete.getId());
+        assertFalse(deletedMovie.isPresent());
     }
 }
