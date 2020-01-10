@@ -9,11 +9,13 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.validation.FieldError;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -26,6 +28,63 @@ public class MovieControllerTest {
 
     @Autowired
     private MovieService movieService;
+
+    @Test
+    public void bindingShouldSetEmptyStringsToNull() throws Exception {
+        mockMvc.perform(
+                post("/movie")
+                        .param("title", "abc")
+                        .param("plot", "   ")
+        );
+
+        movieService.find().forEach((Movie movie) -> assertNull(movie.getPlot()));
+    }
+
+    @Test
+    public void shouldShowMovies() throws Exception {
+        for (int i = 0; i < 3; i++) {
+            Movie movie = new Movie();
+            movie.setTitle("abc");
+            movieService.save(movie);
+        }
+
+        MvcResult mvcResult = mockMvc
+                .perform(get("/movie"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(MovieController.LIST_MOVIES))
+                .andReturn();
+
+        Iterable<Movie> movies = (Iterable<Movie>) mvcResult.getModelAndView().getModel().get("movies");
+        // Check that movies are returned by id in descending order
+        Iterator<Movie> iterator = movies.iterator();
+        Movie firstMovie = iterator.next();
+        Movie secondMovie = iterator.next();
+        Movie thirdMovie = iterator.next();
+        assertTrue(firstMovie.getId() > secondMovie.getId());
+        assertTrue(secondMovie.getId() > thirdMovie.getId());
+    }
+
+    @Test
+    public void shouldShowMovieDetails() throws Exception {
+        Movie movieToSave = new Movie();
+        movieToSave.setTitle("abc");
+        Movie movie = movieService.save(movieToSave);
+
+        mockMvc
+                .perform(get("/movie/{id}", movie.getId().toString()))
+                .andExpect(status().isOk())
+                .andExpect(view().name(MovieController.SHOW_MOVIE))
+                .andExpect(model().attribute("movie", hasProperty("title", equalTo(movie.getTitle()))));
+    }
+
+    @Test
+    public void shouldShowMovieForm() throws Exception {
+        mockMvc
+                .perform(get("/movie/new"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(MovieController.CREATE_MOVIE_FORM))
+                .andExpect(model().attribute("movie", instanceOf(Movie.class)));
+    }
 
     @Test
     public void saveMovieShouldReturnErrorsIfFieldsAreNotValid() throws Exception {
@@ -63,15 +122,6 @@ public class MovieControllerTest {
                 )
                 .andExpect(status().isFound())
                 .andExpect(model().attributeDoesNotExist("errors"))
-                .andExpect(view().name("redirect:/movie"))
-                .andReturn();
-
-        this.movieService.find().forEach(actualMovie -> {
-            assertNotNull(actualMovie.getId());
-            assertEquals(movie.getTitle(), actualMovie.getTitle());
-            assertEquals(movie.getYear(), actualMovie.getYear());
-            assertEquals(movie.getGenre(), actualMovie.getGenre());
-            assertEquals(movie.getPlot(), actualMovie.getPlot());
-        });
+                .andExpect(view().name("redirect:/movie"));
     }
 }
