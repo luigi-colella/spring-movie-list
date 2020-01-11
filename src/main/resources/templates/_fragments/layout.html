@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
-<html th:fragment="layout (content)">
+<html th:fragment="layout (content, styles)">
 <head>
     <title>Popcorn Database</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-
     <link media="all" rel="stylesheet" th:href="@{/assets/bootstrap.min.css}" type="text/css">
+    <th:block th:replace="${styles}"/>
 </head>
 <body class="bg-light">
 <nav class="navbar sticky-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" th:href="@{/}">
         <img alt="Logo" class="d-inline-block align-top" height="30" th:src="@{/assets/brand.png}" width="30">
         Popcorn Database
     </a>
