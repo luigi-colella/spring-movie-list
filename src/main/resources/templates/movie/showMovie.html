@@ -27,9 +27,9 @@
                         </th:block>
                     </div>
                     <div class="mt-auto ml-auto">
-                        <form th:action="@{'/movie/' + ${movie.id}}" method="post">
+                        <form method="post" th:action="@{'/movie/' + ${movie.id}}">
                             <button class="btn btn-primary mr-2">Edit</button>
-                            <button type="submit" name="_method" value="delete" class="btn btn-danger">Delete</button>
+                            <button class="btn btn-danger" name="_method" type="submit" value="delete">Delete</button>
                         </form>
                     </div>
                 </div>

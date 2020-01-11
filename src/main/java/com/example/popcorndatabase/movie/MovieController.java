@@ -31,9 +31,8 @@ public class MovieController {
      * Set empty strings in the command / form objects to null as default.
      */
     @InitBinder
-    public void setEmptyStringsToNullInBinding(WebDataBinder binder)
-    {
-        binder.registerCustomEditor(String.class, new StringTrimmerEditor( true ));
+    public void setEmptyStringsToNullInBinding(WebDataBinder binder) {
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
 
     /**
