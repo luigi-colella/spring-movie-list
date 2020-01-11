@@ -23,6 +23,7 @@ public class MovieController {
     public static final String LIST_MOVIES = "movie/listMovies";
     public static final String SHOW_MOVIE = "movie/showMovie";
     public static final String CREATE_MOVIE_FORM = "movie/createMovieForm";
+    public static final String REDIRECT_TO_LIST_MOVIES = "redirect:/movie";
 
     @Autowired
     MovieService movieService;
@@ -76,7 +77,7 @@ public class MovieController {
         }
 
         movieService.save(movie);
-        return "redirect:/movie";
+        return REDIRECT_TO_LIST_MOVIES;
     }
 
     /**
@@ -85,6 +86,6 @@ public class MovieController {
     @DeleteMapping("/{id}")
     public String deleteMovie(@PathVariable Integer id) {
         movieService.delete(id);
-        return "redirect:/movie";
+        return REDIRECT_TO_LIST_MOVIES;
     }
 }

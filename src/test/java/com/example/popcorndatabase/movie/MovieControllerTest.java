@@ -118,7 +118,7 @@ public class MovieControllerTest {
                 )
                 .andExpect(status().isFound())
                 .andExpect(model().attributeDoesNotExist("errors"))
-                .andExpect(view().name("redirect:/movie"));
+                .andExpect(view().name(MovieController.REDIRECT_TO_LIST_MOVIES));
     }
 
     @Test
@@ -130,7 +130,7 @@ public class MovieControllerTest {
         mockMvc
                 .perform(delete("/movie/{id}", movieToDelete.getId().toString()))
                 .andExpect(status().isFound())
-                .andExpect(view().name("redirect:/movie"));
+                .andExpect(view().name(MovieController.REDIRECT_TO_LIST_MOVIES));
 
         Optional<Movie> deletedMovie = movieService.find(movieToDelete.getId());
         assertFalse(deletedMovie.isPresent());
