@@ -1,9 +1,6 @@
 package com.example.popcorndatabase.movie;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -29,7 +26,8 @@ public class Movie {
 
     private String plot;
 
-    private String posterPath;
+    @Lob
+    private String posterImage;
 
     public Integer getId() {
         return id;
@@ -71,11 +69,11 @@ public class Movie {
         this.plot = plot;
     }
 
-    public String getPosterPath() {
-        return posterPath;
+    public String getPosterImage() {
+        return posterImage;
     }
 
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
+    public void setPosterImage(String posterImage) {
+        this.posterImage = posterImage;
     }
 }

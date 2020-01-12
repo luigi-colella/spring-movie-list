@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Map;
 
 @Controller
@@ -79,14 +81,19 @@ public class MovieController {
      * Save or update a movie in the database.
      */
     @PostMapping("")
-    public String saveMovie(@Valid Movie movie, BindingResult bindingResult, Map<String, Object> model, HttpServletResponse response) {
+    public String saveMovie(
+            @Valid Movie movie,
+            @RequestParam("image") MultipartFile image,
+            BindingResult bindingResult,
+            Map<String, Object> model,
+            HttpServletResponse response
+    ) throws IOException {
         if (bindingResult.hasErrors()) {
             response.setStatus(HttpStatus.PRECONDITION_FAILED.value());
             model.put("errors", bindingResult);
             return VIEW_ADD_MOVIE;
         }
-
-        Movie savedMovie = movieService.save(movie);
+        Movie savedMovie = movieService.save(movie, image);
         model.put("movie", savedMovie);
         return VIEW_SHOW_MOVIE;
     }

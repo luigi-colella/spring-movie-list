@@ -1,7 +1,7 @@
 <html th:replace="~{_fragments/layout :: layout (~{::body}, ~{})}" xmlns:th="https://www.thymeleaf.org">
 <body>
 <h1>Insert new movie</h1>
-<form method="post" th:action="@{/movie}" th:object="${movie}">
+<form enctype="multipart/form-data" method="post" th:action="@{/movie}" th:object="${movie}">
     <!--/* Id (optional for create) */-->
     <input name="id" th:if="*{id}" th:value="*{id}" type="hidden">
     <!-- Title -->
@@ -42,7 +42,9 @@
     <!-- Poster -->
     <div class="form-group">
         <label for="poster">Poster</label>
-        <input class="form-control" id="poster" type="file">
+        <input th:if="${movie.posterImage}" class="form-control" name="posterImage"
+               th:value="${movie.posterImage}" hidden>
+        <input class="form-control" id="poster" name="image" type="file">
     </div>
 
     <!-- Submit -->

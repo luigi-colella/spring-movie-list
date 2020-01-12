@@ -6,7 +6,7 @@
         <div class="row w-100">
             <div class="col-sm mt-auto mb-auto">
                 <img class="align-self-center mr-3 w-100"
-                     th:src="@{__(${movie.posterPath} ?: '/assets/no-poster-placeholder.jpg')__}">
+                     th:src="@{__(${movie.posterImage} ? 'data:image/jpeg;base64,' + ${movie.posterImage} : '/assets/no-poster-placeholder.jpg')__}">
             </div>
             <div class="col-sm">
                 <div class="d-flex flex-column justify-content-start h-100">
@@ -28,7 +28,8 @@
                     </div>
                     <div class="mt-auto ml-auto">
                         <form>
-                            <button class="btn btn-primary mr-2" formmethod="get" th:formaction="@{'/movie/update/' + ${movie.id}}"
+                            <button class="btn btn-primary mr-2" formmethod="get"
+                                    th:formaction="@{'/movie/update/' + ${movie.id}}"
                                     type="submit">Edit
                             </button>
                             <button class="btn btn-danger" formmethod="post" name="_method"
