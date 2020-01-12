@@ -28,8 +28,12 @@
                     </div>
                     <div class="mt-auto ml-auto">
                         <form>
-                            <button formmethod="get" th:formaction="@{'/movie/update/' + ${movie.id}}" type="submit" class="btn btn-primary mr-2">Edit</button>
-                            <button formmethod="post" th:formaction="@{'/movie/' + ${movie.id}}" name="_method" value="delete" type="submit" class="btn btn-danger">Delete</button>
+                            <button class="btn btn-primary mr-2" formmethod="get" th:formaction="@{'/movie/update/' + ${movie.id}}"
+                                    type="submit">Edit
+                            </button>
+                            <button class="btn btn-danger" formmethod="post" name="_method"
+                                    th:formaction="@{'/movie/' + ${movie.id}}" type="submit" value="delete">Delete
+                            </button>
                         </form>
                     </div>
                 </div>
