@@ -12,7 +12,10 @@
         <img alt="Logo" class="d-inline-block align-top" height="30" th:src="@{/assets/brand.png}" width="30">
         Popcorn Database
     </a>
-    <ul class="navbar-nav">
+    <ul class="navbar-nav flex-row">
+        <li class="nav-item mx-3">
+            <a class="nav-link" th:href="@{/movie}">See all movies</a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" th:href="@{/movie/new}">Insert new movie</a>
         </li>
