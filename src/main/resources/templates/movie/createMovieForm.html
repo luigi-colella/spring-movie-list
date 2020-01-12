@@ -2,6 +2,8 @@
 <body>
 <h1>Insert new movie</h1>
 <form method="post" th:action="@{/movie}" th:object="${movie}">
+    <!--/* Id (optional for create) */-->
+    <input th:if="*{id}" name="id" th:value="*{id}" type="hidden">
     <!-- Title -->
     <div class="form-group">
         <label for="title">Title</label>

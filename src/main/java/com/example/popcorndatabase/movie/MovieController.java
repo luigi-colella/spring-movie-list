@@ -61,7 +61,7 @@ public class MovieController {
      * Show the view with the form to add a new movie.
      */
     @GetMapping("/new")
-    public String showMovieForm(Map<String, Object> model) {
+    public String addMovieForm(Map<String, Object> model) {
         Movie movie = new Movie();
         model.put("movie", movie);
         return CREATE_MOVIE_FORM;
@@ -82,12 +82,13 @@ public class MovieController {
     }
 
     /**
-     * Update movie fields in the database.
+     * Show the view with the form to update an existing movie.
      */
-    @PutMapping("/{id}")
-    public String updateMovie(@Valid Movie movie) {
-        movieService.save(movie);
-        return REDIRECT_TO_SHOW_MOVIE;
+    @GetMapping("/update/{id}")
+    public String updateMovieForm(@PathVariable Integer id, Map<String, Object> model) {
+        Movie movie = movieService.findOrThrow404(id);
+        model.put("movie", movie);
+        return CREATE_MOVIE_FORM;
     }
 
     /**
