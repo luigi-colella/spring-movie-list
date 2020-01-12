@@ -1,22 +1,22 @@
 <html th:replace="~{_fragments/layout :: layout (~{::body}, ~{})}" xmlns:th="https://www.thymeleaf.org">
 <body>
-<h1>Insert new movie</h1>
+<h1 th:text="${movie.id} ? 'Update movie' : 'Insert new movie'"></h1>
 <form enctype="multipart/form-data" method="post" th:action="@{/movie}" th:object="${movie}">
-    <!--/* Id (optional for create) */-->
+    <!--/* Id (needed to update a movie) */-->
     <input name="id" th:if="*{id}" th:value="*{id}" type="hidden">
-    <!-- Title -->
+    <!--/* Title */-->
     <div class="form-group">
         <label for="title">Title</label>
         <input class="form-control" id="title" placeholder="Enter title" th:field="*{title}" type="text">
         <p th:errors="*{title}" th:if="${#fields.hasErrors('title')}"></p>
     </div>
-    <!-- Year -->
+    <!--/* Year */-->
     <div class="form-group">
         <label for="year">Year</label>
         <input class="form-control" id="year" placeholder="Enter year" th:field="*{year}" type="number">
         <p th:errors="*{year}" th:if="${#fields.hasErrors('year')}"></p>
     </div>
-    <!-- Genre -->
+    <!--/* Genre */-->
     <div class="form-group">
         <label for="genre">Genre</label>
         <input class="form-control" id="genre" list="genres" placeholder="Enter genre" th:field="*{genre}"
@@ -33,13 +33,13 @@
         <small class="form-text text-muted">Double click the field to see a list of suggested genres.</small>
         <p th:errors="*{genre}" th:if="${#fields.hasErrors('genre')}"></p>
     </div>
-    <!-- Plot -->
+    <!--/* Plot */-->
     <div class="form-group">
         <label for="genre">Plot</label>
         <textarea class="form-control" id="plot" placeholder="Enter plot" th:field="*{plot}"></textarea>
         <p th:errors="*{plot}" th:if="${#fields.hasErrors('plot')}"></p>
     </div>
-    <!-- Poster -->
+    <!--/* Poster */-->
     <div class="form-group">
         <label for="poster">Poster</label>
         <input th:if="${movie.posterImage}" class="form-control" name="posterImage"
@@ -47,7 +47,7 @@
         <input class="form-control" id="poster" name="image" type="file">
     </div>
 
-    <!-- Submit -->
+    <!--/* Submit */-->
     <button class="btn btn-primary" type="submit">Submit</button>
 </form>
 </body>
