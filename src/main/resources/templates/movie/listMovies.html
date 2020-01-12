@@ -1,15 +1,21 @@
-<html th:replace="~{_fragments/layout :: layout (~{::body}, ~{})}" xmlns:th="https://www.thymeleaf.org">
+<html th:replace="~{_fragments/layout :: layout (~{::body})}" xmlns:th="https://www.thymeleaf.org">
 <body>
 <h1>Last added movies</h1>
+<hr>
 <div class="my-4 card-columns">
-    <div class="card" th:each="movie : ${movies}">
-        <a th:href="@{'/movie/' + ${movie.id}}">
-            <img class="card-img-top"
-                 th:src="@{__(${movie.posterImage} ? 'data:image/jpeg;base64,' + ${movie.posterImage} : '/assets/no-poster-placeholder.jpg')__}">
-        </a>
-        <div class="card-body">
-            <h5 class="card-title" th:text="${movie.title}"></h5>
-            <p class="card-text" th:text="${movie.plot}"></p>
+    <div th:if="${#lists.isEmpty(movies)}">
+        <p>There's no movie to show</p>
+    </div>
+    <div th:unless="${#lists.isEmpty(movies)}">
+        <div class="card" th:each="movie : ${movies}">
+            <a th:href="@{'/movie/' + ${movie.id}}">
+                <img class="card-img-top"
+                     th:src="@{__(${movie.posterImage} ? 'data:image/jpeg;base64,' + ${movie.posterImage} : '/assets/no-poster-placeholder.jpg')__}">
+            </a>
+            <div class="card-body">
+                <h5 class="card-title" th:text="${movie.title}"></h5>
+                <p class="card-text" th:text="${movie.plot}"></p>
+            </div>
         </div>
     </div>
 </div>

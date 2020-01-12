@@ -1,10 +1,9 @@
 <!DOCTYPE HTML>
-<html th:fragment="layout (content, styles)">
+<html th:fragment="layout (content)">
 <head>
     <title>Movie List</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link media="all" rel="stylesheet" th:href="@{/assets/bootstrap.min.css}" type="text/css">
-    <th:block th:replace="${styles}"/>
 </head>
 <body class="bg-light">
 <nav class="navbar sticky-top navbar-dark bg-dark">
@@ -14,10 +13,10 @@
     </a>
     <ul class="navbar-nav flex-row">
         <li class="nav-item mx-3">
-            <a class="nav-link" th:href="@{/movie}">See all movies</a>
+            <a class="nav-link" th:href="@{/movie}">See movies</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/movie/new}">Insert new movie</a>
+            <a class="btn btn-outline-light" th:href="@{/movie/new}">Add new movie</a>
         </li>
     </ul>
 </nav>

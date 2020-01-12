@@ -1,43 +1,38 @@
-<html th:replace="~{_fragments/layout :: layout (~{::body}, ~{})}" xmlns:th="https://www.thymeleaf.org"
+<html th:replace="~{_fragments/layout :: layout (~{::body})}" xmlns:th="https://www.thymeleaf.org"
 >
 <body>
 <div class="jumbotron p-4">
     <div class="media">
-        <div class="row w-100">
-            <div class="col-sm mt-auto mb-auto">
-                <img class="align-self-center mr-3 w-100"
-                     th:src="@{__(${movie.posterImage} ? 'data:image/jpeg;base64,' + ${movie.posterImage} : '/assets/no-poster-placeholder.jpg')__}">
+        <img class="align-self-center mr-3"
+             style="max-height: 500px"
+             th:src="@{__(${movie.posterImage} ? 'data:image/jpeg;base64,' + ${movie.posterImage} : '/assets/no-poster-placeholder.jpg')__}">
+        <div class="media-body ml-3">
+            <div>
+                <h1 th:text="${movie.title}"></h1>
+                <hr>
+                <th:block th:if="${movie.year}">
+                    <h5>Title</h5>
+                    <p th:text="${movie.year}"></p>
+                </th:block>
+                <th:block th:if="${movie.genre}">
+                    <h5>Genre</h5>
+                    <p th:text="${movie.genre}"></p>
+                </th:block>
+                <th:block th:if="${movie.plot}">
+                    <h5>Plot</h5>
+                    <p th:text="${movie.plot}"></p>
+                </th:block>
             </div>
-            <div class="col-sm">
-                <div class="d-flex flex-column justify-content-start h-100">
-                    <div class="media-body">
-                        <h1 th:text="${movie.title}"></h1>
-                        <hr>
-                        <th:block th:if="${movie.year}">
-                            <h5>Title</h5>
-                            <p th:text="${movie.year}"></p>
-                        </th:block>
-                        <th:block th:if="${movie.genre}">
-                            <h5>Genre</h5>
-                            <p th:text="${movie.genre}"></p>
-                        </th:block>
-                        <th:block th:if="${movie.plot}">
-                            <h5>Plot</h5>
-                            <p th:text="${movie.plot}"></p>
-                        </th:block>
-                    </div>
-                    <div class="mt-auto ml-auto">
-                        <form>
-                            <button class="btn btn-primary mr-2" formmethod="get"
-                                    th:formaction="@{'/movie/update/' + ${movie.id}}"
-                                    type="submit">Edit
-                            </button>
-                            <button class="btn btn-danger" formmethod="post" name="_method"
-                                    th:formaction="@{'/movie/' + ${movie.id}}" type="submit" value="delete">Delete
-                            </button>
-                        </form>
-                    </div>
-                </div>
+            <div class="mt-5">
+                <form>
+                    <button class="btn btn-primary mr-2" formmethod="get"
+                            th:formaction="@{'/movie/update/' + ${movie.id}}"
+                            type="submit">Edit
+                    </button>
+                    <button class="btn btn-danger" formmethod="post" name="_method"
+                            th:formaction="@{'/movie/' + ${movie.id}}" type="submit" value="delete">Delete
+                    </button>
+                </form>
             </div>
         </div>
     </div>

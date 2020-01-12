@@ -1,6 +1,7 @@
-<html th:replace="~{_fragments/layout :: layout (~{::body}, ~{})}" xmlns:th="https://www.thymeleaf.org">
+<html th:replace="~{_fragments/layout :: layout (~{::body})}" xmlns:th="https://www.thymeleaf.org">
 <body>
 <h1 th:text="${movie.id} ? 'Update movie' : 'Insert new movie'"></h1>
+<hr>
 <form enctype="multipart/form-data" method="post" th:action="@{/movie}" th:object="${movie}">
     <!--/* Id (needed to update a movie) */-->
     <input name="id" th:if="*{id}" th:value="*{id}" type="hidden">
@@ -47,8 +48,8 @@
         <input class="form-control" id="poster" name="image" type="file">
     </div>
 
-    <!--/* Submit */-->
-    <button class="btn btn-primary" type="submit">Submit</button>
+    <!--/* Save */-->
+    <button class="btn btn-primary" type="submit">Save</button>
 </form>
 </body>
 </html>
