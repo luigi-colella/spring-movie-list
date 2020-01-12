@@ -1,4 +1,4 @@
-package com.example.popcorndatabase.movie;
+package com.example.movielist.movie;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;

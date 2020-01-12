@@ -1,4 +1,4 @@
-package com.example.popcorndatabase.system;
+package com.example.movielist.system;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.example.popcorndatabase.system;
+package com.example.movielist.system;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

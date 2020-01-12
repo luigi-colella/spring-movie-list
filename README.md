@@ -1,5 +1,5 @@
-# Popcorn database
-A movies database web app made with Spring Boot. 🎞️🍿
+# Spring Movie List Sample Application 
+A sample web app made with Spring 🎞️🍿
 
 ## Getting started
 

@@ -1,4 +1,4 @@
-package com.example.popcorndatabase.movie;
+package com.example.movielist.movie;
 
 import org.springframework.data.repository.CrudRepository;
 
