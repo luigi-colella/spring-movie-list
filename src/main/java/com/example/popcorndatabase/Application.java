@@ -17,6 +17,9 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
+    /**
+     * Register the filter to detect, from the request's body, the HTTP method used.
+     */
     @Bean
     public FilterRegistrationBean hiddenHttpMethodFilter() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new HiddenHttpMethodFilter());

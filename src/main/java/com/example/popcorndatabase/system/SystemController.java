@@ -8,17 +8,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Controller used to handle not domain specific requests.
- */
 @Controller
 public class SystemController {
 
     /**
-     * Show homepage.
+     * Show the homepage.
      */
     @GetMapping("")
-    public String showHomepage() {
+    public String showHomepageView() {
         return "redirect:/movie";
     }
 

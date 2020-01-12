@@ -47,7 +47,7 @@ public class MovieControllerTest {
         MvcResult mvcResult = mockMvc
                 .perform(get("/movie"))
                 .andExpect(status().isOk())
-                .andExpect(view().name(MovieController.LIST_MOVIES))
+                .andExpect(view().name(MovieController.VIEW_LIST_MOVIES))
                 .andReturn();
 
         Iterable<Movie> movies = (Iterable<Movie>) mvcResult.getModelAndView().getModel().get("movies");
@@ -69,8 +69,8 @@ public class MovieControllerTest {
         mockMvc
                 .perform(get("/movie/{id}", movie.getId().toString()))
                 .andExpect(status().isOk())
-                .andExpect(view().name(MovieController.SHOW_MOVIE))
-                .andExpect(model().attribute("movie", hasProperty("title", equalTo(movie.getTitle()))));
+                .andExpect(model().attribute("movie", hasProperty("title", equalTo(movie.getTitle()))))
+                .andExpect(view().name(MovieController.VIEW_SHOW_MOVIE));
     }
 
     @Test
@@ -78,27 +78,18 @@ public class MovieControllerTest {
         mockMvc
                 .perform(get("/movie/new"))
                 .andExpect(status().isOk())
-                .andExpect(view().name(MovieController.CREATE_MOVIE_FORM))
+                .andExpect(view().name(MovieController.VIEW_ADD_MOVIE))
                 .andExpect(model().attribute("movie", instanceOf(Movie.class)));
     }
 
     @Test
     public void saveMovieShouldReturnErrorsIfFieldsAreNotValid() throws Exception {
-        MvcResult mvcResult = mockMvc
+        mockMvc
                 .perform(post("/movie").param("year", "0"))
-                .andExpect(status().isOk())
-                .andExpect(view().name(MovieController.CREATE_MOVIE_FORM))
-                .andReturn();
-
-        HashMap<String, String> expectedErrorMessages = new HashMap<>();
-        expectedErrorMessages.put("title", "must not be empty");
-        expectedErrorMessages.put("year", "must be greater than or equal to 1878");
-
-        @SuppressWarnings("unchecked") List<FieldError> errors = (List<FieldError>) Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get("errors");
-        errors.forEach(error -> {
-            String expectedErrorMessage = expectedErrorMessages.get(error.getField());
-            assertEquals(expectedErrorMessage, error.getDefaultMessage());
-        });
+                .andExpect(status().isPreconditionFailed())
+                .andExpect(model().attributeHasFieldErrorCode("movie", "title", "NotEmpty"))
+                .andExpect(model().attributeHasFieldErrorCode("movie", "year", "Min"))
+                .andExpect(view().name(MovieController.VIEW_ADD_MOVIE));
     }
 
     @Test
@@ -116,9 +107,8 @@ public class MovieControllerTest {
                         .param("genre", movie.getGenre())
                         .param("plot", movie.getPlot())
                 )
-                .andExpect(status().isFound())
-                .andExpect(model().attributeDoesNotExist("errors"))
-                .andExpect(view().name(MovieController.REDIRECT_TO_LIST_MOVIES));
+                .andExpect(status().isOk())
+                .andExpect(view().name(MovieController.VIEW_SHOW_MOVIE));
     }
 
     @Test
@@ -128,11 +118,12 @@ public class MovieControllerTest {
         Movie movieToUpdate = movieService.save(movie);
 
         mockMvc
-                .perform(put("/movie/{id}", movieToUpdate.getId().toString())
+                .perform(post("/movie")
+                        .param("id", movie.getId().toString())
                         .param("title", "NEW TITLE")
                 )
-                .andExpect(status().isFound())
-                .andExpect(view().name(MovieController.REDIRECT_TO_SHOW_MOVIE));
+                .andExpect(status().isOk())
+                .andExpect(view().name(MovieController.VIEW_SHOW_MOVIE));
 
         Movie updatedMovie = movieService.findOrThrow404(movieToUpdate.getId());
         assertEquals("NEW TITLE", updatedMovie.getTitle());
@@ -147,7 +138,7 @@ public class MovieControllerTest {
         mockMvc
                 .perform(delete("/movie/{id}", movieToDelete.getId().toString()))
                 .andExpect(status().isFound())
-                .andExpect(view().name(MovieController.REDIRECT_TO_LIST_MOVIES));
+                .andExpect(view().name(MovieController.REDIRECT_TO_VIEW_LIST_MOVIES));
 
         Optional<Movie> deletedMovie = movieService.find(movieToDelete.getId());
         assertFalse(deletedMovie.isPresent());
