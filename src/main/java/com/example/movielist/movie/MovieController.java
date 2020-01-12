@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/movie")
@@ -83,8 +84,8 @@ public class MovieController {
     @PostMapping("")
     public String saveMovie(
             @Valid Movie movie,
-            @RequestParam("image") MultipartFile image,
             BindingResult bindingResult,
+            @RequestParam("image") Optional<MultipartFile> image,
             Map<String, Object> model,
             HttpServletResponse response
     ) throws IOException {

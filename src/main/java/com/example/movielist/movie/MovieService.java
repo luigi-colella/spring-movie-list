@@ -36,11 +36,11 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
-    public Movie save(Movie movie, MultipartFile posterImage) throws IOException {
-        if (!posterImage.isEmpty()) {
+    public Movie save(Movie movie, Optional<MultipartFile> posterImage) throws IOException {
+        if (posterImage.isPresent() && !posterImage.get().isEmpty()) {
             // This app is only for demonstration purposes then images are stored as string values in database
             // but in production it would be better to store them on a filesystem or on an external service
-            String base64Image = Base64.getEncoder().encodeToString(posterImage.getBytes());
+            String base64Image = Base64.getEncoder().encodeToString(posterImage.get().getBytes());
             movie.setPosterImage(base64Image);
         }
         return movieRepository.save(movie);

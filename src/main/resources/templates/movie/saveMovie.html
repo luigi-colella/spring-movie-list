@@ -42,8 +42,8 @@
     <!--/* Poster */-->
     <div class="form-group">
         <label for="poster">Poster</label>
-        <input th:if="${movie.posterImage}" class="form-control" name="posterImage"
-               th:value="${movie.posterImage}" hidden>
+        <input class="form-control" hidden name="posterImage"
+               th:if="${movie.posterImage}" th:value="${movie.posterImage}">
         <input class="form-control" id="poster" name="image" type="file">
     </div>
 
