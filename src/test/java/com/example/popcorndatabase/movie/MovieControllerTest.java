@@ -122,6 +122,23 @@ public class MovieControllerTest {
     }
 
     @Test
+    public void shouldUpdateMovie() throws Exception {
+        Movie movie = new Movie();
+        movie.setTitle("OLD TITLE");
+        Movie movieToUpdate = movieService.save(movie);
+
+        mockMvc
+                .perform(put("/movie/{id}", movieToUpdate.getId().toString())
+                        .param("title", "NEW TITLE")
+                )
+                .andExpect(status().isFound())
+                .andExpect(view().name(MovieController.REDIRECT_TO_SHOW_MOVIE));
+
+        Movie updatedMovie = movieService.findOrThrow404(movieToUpdate.getId());
+        assertEquals("NEW TITLE", updatedMovie.getTitle());
+    }
+
+    @Test
     public void shouldDeleteMovie() throws Exception {
         Movie movie = new Movie();
         movie.setTitle("abc");

@@ -24,6 +24,7 @@ public class MovieController {
     public static final String SHOW_MOVIE = "movie/showMovie";
     public static final String CREATE_MOVIE_FORM = "movie/createMovieForm";
     public static final String REDIRECT_TO_LIST_MOVIES = "redirect:/movie";
+    public static final String REDIRECT_TO_SHOW_MOVIE = "redirect:/movie/showMovie";
 
     @Autowired
     MovieService movieService;
@@ -78,6 +79,15 @@ public class MovieController {
 
         movieService.save(movie);
         return REDIRECT_TO_LIST_MOVIES;
+    }
+
+    /**
+     * Update movie fields in the database.
+     */
+    @PutMapping("/{id}")
+    public String updateMovie(@Valid Movie movie) {
+        movieService.save(movie);
+        return REDIRECT_TO_SHOW_MOVIE;
     }
 
     /**
