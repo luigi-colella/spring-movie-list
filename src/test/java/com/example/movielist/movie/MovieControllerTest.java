@@ -4,9 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.event.annotation.BeforeTestClass;
+import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import javax.sql.DataSource;
 import java.util.Iterator;
 import java.util.Optional;
 
@@ -24,6 +28,12 @@ public class MovieControllerTest {
 
     @Autowired
     private MovieService movieService;
+
+    @BeforeTestClass
+    @Autowired
+    public void initDatabase(DataSource dataSource) {
+        JdbcTestUtils.deleteFromTables(new JdbcTemplate(dataSource),"movie");
+    }
 
     @Test
     public void bindingShouldSetEmptyStringsToNull() throws Exception {
