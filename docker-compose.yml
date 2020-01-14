@@ -1,0 +1,14 @@
+version: "3.3"
+services:
+  app:
+    image: maven:3.6-jdk-8-slim
+    working_dir: /app
+    volumes:
+      - .:/app
+      - maven-repository:/root/.m2
+    command: bash -c 'mvn package && java -jar target/spring-movie-list-0.0.1-SNAPSHOT.jar'
+    ports:
+      - 8080:8080
+
+volumes:
+  maven-repository:
