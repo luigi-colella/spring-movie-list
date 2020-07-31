@@ -2,10 +2,15 @@
 A sample web app made with Spring Boot 🎞️🍿
 
 ## Summary
-1. [Stack](#stack)
-2. [Getting started](#getting-started)
+- [Demo](#demo)
+- [Stack](#stack)
+- [Getting started](#getting-started)
     * [Running app directly on your system](#running-app-directly-on-your-system)
     * [Running app with Docker](#running-app-with-docker)
+
+## Demo
+
+![Demo](https://github.com/lgcolella/spring-movie-list/raw/master/repository/demo.gif "Demo")
 
 ## Stack
 [![Spring Boot](https://github.com/lgcolella/spring-movie-list/raw/master/repository/spring-boot.png "Spring Boot")](https://spring.io/projects/spring-boot)
